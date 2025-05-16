@@ -45,8 +45,11 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     
-    - name: Build
-      run: dotnet build --no-restore --configuration Release
+    - name: Code Format Check
+      run: dotnet format --verify-no-changes --verbosity detailed
+    
+    - name: Build with StyleCop Analysis
+      run: dotnet build --no-restore --configuration Release /p:TreatWarningsAsErrors=true /p:EnforceCodeStyleInBuild=true
 
     - name: Run tests
       run: |
