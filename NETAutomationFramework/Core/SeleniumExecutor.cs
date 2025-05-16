@@ -15,7 +15,7 @@ namespace NETAutomationFramework.Core
         public SeleniumExecutor(IWebDriver driver)
         {
             _driver = driver;
-            _wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
+            _wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
         }
 
         public void OpenPage(string url)
@@ -197,7 +197,8 @@ namespace NETAutomationFramework.Core
             {
                 throw new Exception($"Failed to switch to frame with locator: {frameLocator}", ex);
             }
-        }        public void SwitchToDefaultContent()
+        }
+        public void SwitchToDefaultContent()
         {
             try
             {

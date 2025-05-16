@@ -1,6 +1,7 @@
 using NETAutomationFramework.Core;
 using NETAutomationFramework.Pages;
-using Xunit;
+using NETAutomationFramework.Utils;
+using FluentAssertions;
 
 namespace NETAutomationFramework.Tests
 {
@@ -17,17 +18,13 @@ namespace NETAutomationFramework.Tests
         public void SuccessfulLogin_WhenValidCredentialsProvided()
         {
             // Verify the login page is displayed
-            Assert.True(_loginPage.IsPageDisplayed(), "Login page is not displayed");
+            _loginPage.IsPageDisplayed().Should().BeTrue("The login page should be displayed");
 
-            // Test with default credentials
-            _loginPage.Login();
-
-            // Test with custom credentials
-            _loginPage.Login("customuser", "custompass");
+            // Test with credentials from config
+            _loginPage.Login(Config.Credentials.StandardUsername, Config.Credentials.StandardPassword);
 
             // Add assertions for successful login
-            // For example:
-            // Assert.That(_dashboardPage.IsPageDisplayed(), Is.True, "Dashboard page is not displayed after login");
+            _loginPage.GetLogoText().Should().Be("Swag Labs", "The logo text should match after successful login");
         }
     }
 }

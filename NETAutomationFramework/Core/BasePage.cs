@@ -7,9 +7,6 @@ namespace NETAutomationFramework.Core
         protected readonly IWebDriver Driver;
         protected readonly SeleniumExecutor SeleniumExecutor;
 
-        private static By WelcomeDialog => By.XPath("//div[@role='dialog']");
-        private static By CloseButton => By.CssSelector("popup-widget190298-close-icon");
-
         protected BasePage(IWebDriver driver)
         {
             // Initialize the WebDriver and SeleniumExecutor
@@ -18,13 +15,6 @@ namespace NETAutomationFramework.Core
             
             // Navigate to page URL on initialization
             SeleniumExecutor.OpenPage($"{Config.BaseUrl}{PageUrl}");
-
-            // Check if the welcome dialog is displayed
-            if (SeleniumExecutor.WaitForElement(WelcomeDialog).Displayed)
-            {
-                // Close the welcome dialog if it appears
-                SeleniumExecutor.Click(CloseButton);
-            }
 
             // Check if the page is displayed
             WaitForPageToLoad();

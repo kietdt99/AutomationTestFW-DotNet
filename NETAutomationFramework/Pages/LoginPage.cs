@@ -7,11 +7,12 @@ namespace NETAutomationFramework.Pages
     public class LoginPage : BasePage
     {
         #region Page Objects
-        private readonly By _usernameInput = By.Id("username");
+        private readonly By _usernameInput = By.Id("user-name");
         private readonly By _passwordInput = By.Id("password");
-        private readonly By _loginButton = By.Id("login");
+        private readonly By _loginButton = By.Id("login-button");
+        private IWebElement LogoText => Driver.FindElement(By.ClassName("app_logo"));
 
-        protected override string PageUrl => "/m/login?r=%2Fm%2Faccount";
+        protected override string PageUrl => string.Empty;
         protected override By GetPageIdentifier() => _loginButton;
         #endregion
 
@@ -35,6 +36,7 @@ namespace NETAutomationFramework.Pages
             SeleniumExecutor.TypeText(_passwordInput, password ?? string.Empty);
             SeleniumExecutor.Click(_loginButton);
         }
+        public string GetLogoText() => LogoText.Text;
         #endregion
     }
 }
