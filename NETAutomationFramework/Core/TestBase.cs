@@ -1,5 +1,6 @@
 using Xunit;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.Extensions;
 using NETAutomationFramework.Utils;
 using System;
 using System.IO;
@@ -16,7 +17,9 @@ namespace NETAutomationFramework.Core
         {
             Driver = WebDriverFactory.CreateDriver();
             SeleniumExecutor = new SeleniumExecutor(Driver);
-        }        public virtual void Dispose()
+        }
+
+        public virtual void Dispose()
         {
             if (Driver != null)
             {
@@ -47,7 +50,7 @@ namespace NETAutomationFramework.Core
                 var timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
                 var fileName = Path.Combine(artifactDirectory, $"{testName}_{timestamp}.png");
                 
-                screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Png);
+                File.WriteAllBytes(fileName, screenshot.AsByteArray);
             }
             catch (Exception ex)
             {
