@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "3Dh2JDhESvM=",
+  "dgSpecHash": "Wn1sPzTO5xE=",
   "success": true,
   "projectFilePath": "D:\\IT\\Sourcecode\\AutomationTestFW-DotNet\\NETAutomationFramework\\NETAutomationFramework.csproj",
   "expectedPackageFiles": [
@@ -15,6 +15,7 @@
     "C:\\Users\\KietDT\\.nuget\\packages\\selenium.support\\4.32.0\\selenium.support.4.32.0.nupkg.sha512",
     "C:\\Users\\KietDT\\.nuget\\packages\\selenium.webdriver\\4.32.0\\selenium.webdriver.4.32.0.nupkg.sha512",
     "C:\\Users\\KietDT\\.nuget\\packages\\selenium.webdriver.chromedriver\\136.0.7103.4900\\selenium.webdriver.chromedriver.136.0.7103.4900.nupkg.sha512",
+    "C:\\Users\\KietDT\\.nuget\\packages\\stylecop.analyzers\\1.1.118\\stylecop.analyzers.1.1.118.nupkg.sha512",
     "C:\\Users\\KietDT\\.nuget\\packages\\system.reflection.metadata\\1.6.0\\system.reflection.metadata.1.6.0.nupkg.sha512",
     "C:\\Users\\KietDT\\.nuget\\packages\\xunit\\2.9.3\\xunit.2.9.3.nupkg.sha512",
     "C:\\Users\\KietDT\\.nuget\\packages\\xunit.abstractions\\2.0.3\\xunit.abstractions.2.0.3.nupkg.sha512",

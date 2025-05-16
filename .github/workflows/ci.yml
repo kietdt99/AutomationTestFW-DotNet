@@ -1,0 +1,94 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to run tests against'
+        required: true
+        default: 'stage'
+        type: choice
+        options:
+          - dev
+          - stage
+          - prod
+
+env:
+  DOTNET_VERSION: '9.0.x'
+  TEST_BASE_URL: 'https://www.saucedemo.com'
+  TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
+  TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+  TEST_BROWSER: 'chrome'
+  TEST_HEADLESS: 'true'
+
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+    
+    - name: Restore dependencies
+      run: dotnet restore
+    
+    - name: Code Format Check
+      run: dotnet format --verify-no-changes --verbosity detailed
+    
+    - name: Build with StyleCop Analysis
+      run: dotnet build --no-restore --configuration Release /p:TreatWarningsAsErrors=true /p:EnforceCodeStyleInBuild=true
+
+    - name: Run tests
+      run: |
+        dotnet test --no-build --configuration Release \
+        --logger "trx;LogFileName=test-results.trx" \
+        --logger "console;verbosity=detailed" \
+        --results-directory "./TestResults" \
+        --collect:"XPlat Code Coverage" \
+        --settings "./NETAutomationFramework/test.runsettings"
+    
+    - name: Generate Code Coverage Report
+      uses: danielpalme/ReportGenerator-GitHub-Action@5.2.1
+      if: always()
+      with:
+        reports: '**/coverage.cobertura.xml'
+        targetdir: 'coveragereport'
+        reporttypes: 'HtmlInline;Cobertura;MarkdownSummary'
+    
+    - name: Test Report
+      uses: dorny/test-reporter@v1
+      if: success() || failure()
+      with:
+        name: Test Results
+        path: '**/test-results.trx'
+        reporter: dotnet-trx
+        fail-on-error: true
+    
+    - name: Upload test results
+      if: success() || failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results
+        path: |
+          **/TestResults/*.trx
+          coveragereport/**
+    
+    - name: Upload screenshots on failure
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-failure-screenshots
+        path: '**/TestResults/Screenshots/*.png'
