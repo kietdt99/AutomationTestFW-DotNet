@@ -25,6 +25,11 @@ env:
   TEST_BROWSER: 'chrome'
   TEST_HEADLESS: 'true'
 
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+
 jobs:
   build-and-test:
     runs-on: windows-latest
