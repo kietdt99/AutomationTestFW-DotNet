@@ -47,9 +47,23 @@ jobs:
     
     - name: Build
       run: dotnet build --no-restore --configuration Release
-    
+
     - name: Run tests
-      run: dotnet test --no-build --configuration Release --logger "trx;LogFileName=test-results.trx"
+      run: |
+        dotnet test --no-build --configuration Release \
+        --logger "trx;LogFileName=test-results.trx" \
+        --logger "console;verbosity=detailed" \
+        --results-directory "./TestResults" \
+        --collect:"XPlat Code Coverage" \
+        --settings "./NETAutomationFramework/test.runsettings"
+    
+    - name: Generate Code Coverage Report
+      uses: danielpalme/ReportGenerator-GitHub-Action@5.2.1
+      if: always()
+      with:
+        reports: '**/coverage.cobertura.xml'
+        targetdir: 'coveragereport'
+        reporttypes: 'HtmlInline;Cobertura;MarkdownSummary'
     
     - name: Test Report
       uses: dorny/test-reporter@v1
@@ -65,8 +79,10 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: test-results
-        path: '**/TestResults/*.trx'
-
+        path: |
+          **/TestResults/*.trx
+          coveragereport/**
+    
     - name: Upload screenshots on failure
       if: failure()
       uses: actions/upload-artifact@v4
