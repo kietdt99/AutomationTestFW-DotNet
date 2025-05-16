@@ -2,6 +2,8 @@ using Xunit;
 using OpenQA.Selenium;
 using NETAutomationFramework.Utils;
 using System;
+using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace NETAutomationFramework.Core
 {
@@ -14,12 +16,43 @@ namespace NETAutomationFramework.Core
         {
             Driver = WebDriverFactory.CreateDriver();
             SeleniumExecutor = new SeleniumExecutor(Driver);
+        }        public virtual void Dispose()
+        {
+            if (Driver != null)
+            {
+                try
+                {
+                    TakeScreenshot();
+                }
+                catch (Exception)
+                {
+                    // Ignore screenshot errors during disposal
+                }
+                finally
+                {
+                    Driver.Quit();
+                    Driver.Dispose();
+                }
+            }
         }
 
-        public virtual void Dispose()
+        protected void TakeScreenshot([CallerMemberName] string testName = "")
         {
-            Driver?.Quit();
-            Driver?.Dispose();
+            try
+            {
+                var screenshot = ((ITakesScreenshot)Driver).GetScreenshot();
+                var artifactDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestResults", "Screenshots");
+                Directory.CreateDirectory(artifactDirectory);
+                
+                var timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+                var fileName = Path.Combine(artifactDirectory, $"{testName}_{timestamp}.png");
+                
+                screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Png);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to take screenshot: {ex.Message}");
+            }
         }
     }
 }
