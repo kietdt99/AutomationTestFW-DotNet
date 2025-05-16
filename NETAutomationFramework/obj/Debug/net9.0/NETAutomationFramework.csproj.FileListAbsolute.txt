@@ -100,3 +100,5 @@ D:\IT\Sourcecode\AutomationTestFW-DotNet\NETAutomationFramework\obj\Debug\net9.0
 D:\IT\Sourcecode\AutomationTestFW-DotNet\NETAutomationFramework\obj\Debug\net9.0\NETAutomationFramework.genruntimeconfig.cache
 D:\IT\Sourcecode\AutomationTestFW-DotNet\NETAutomationFramework\obj\Debug\net9.0\ref\NETAutomationFramework.dll
 D:\IT\Sourcecode\AutomationTestFW-DotNet\NETAutomationFramework\bin\Debug\net9.0\SeleniumExtras.WaitHelpers.dll
+D:\IT\Sourcecode\AutomationTestFW-DotNet\NETAutomationFramework\obj\Debug\net9.0\NETAutomationFramework.sourcelink.json
+D:\IT\Sourcecode\AutomationTestFW-DotNet\NETAutomationFramework\bin\Debug\net9.0\FluentAssertions.dll

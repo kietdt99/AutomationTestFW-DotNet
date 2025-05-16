@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "nFNiLs63PPk=",
+  "dgSpecHash": "3Dh2JDhESvM=",
   "success": true,
   "projectFilePath": "D:\\IT\\Sourcecode\\AutomationTestFW-DotNet\\NETAutomationFramework\\NETAutomationFramework.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\KietDT\\.nuget\\packages\\coverlet.collector\\6.0.2\\coverlet.collector.6.0.2.nupkg.sha512",
     "C:\\Users\\KietDT\\.nuget\\packages\\dotnetseleniumextras.waithelpers\\3.11.0\\dotnetseleniumextras.waithelpers.3.11.0.nupkg.sha512",
+    "C:\\Users\\KietDT\\.nuget\\packages\\fluentassertions\\8.2.0\\fluentassertions.8.2.0.nupkg.sha512",
     "C:\\Users\\KietDT\\.nuget\\packages\\microsoft.codecoverage\\17.13.0\\microsoft.codecoverage.17.13.0.nupkg.sha512",
     "C:\\Users\\KietDT\\.nuget\\packages\\microsoft.net.test.sdk\\17.13.0\\microsoft.net.test.sdk.17.13.0.nupkg.sha512",
     "C:\\Users\\KietDT\\.nuget\\packages\\microsoft.testplatform.objectmodel\\17.13.0\\microsoft.testplatform.objectmodel.17.13.0.nupkg.sha512",
