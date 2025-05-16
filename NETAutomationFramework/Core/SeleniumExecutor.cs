@@ -1,28 +1,32 @@
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.WaitHelpers;
-using System;
-using System.Collections.Generic;
-using System.Threading;
+// <copyright file="SeleniumExecutor.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace NETAutomationFramework.Core
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading;
+    using OpenQA.Selenium;
+    using OpenQA.Selenium.Support.UI;
+    using SeleniumExtras.WaitHelpers;
+
     public class SeleniumExecutor
     {
-        private readonly IWebDriver _driver;
-        private readonly WebDriverWait _wait;
+        private readonly IWebDriver driver;
+        private readonly WebDriverWait wait;
 
         public SeleniumExecutor(IWebDriver driver)
         {
-            _driver = driver;
-            _wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
+            this.driver = driver;
+            this.wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
         }
 
         public void OpenPage(string url)
         {
             try
             {
-                _driver.Navigate().GoToUrl(url);
+                this.driver.Navigate().GoToUrl(url);
             }
             catch (Exception ex)
             {
@@ -34,7 +38,7 @@ namespace NETAutomationFramework.Core
         {
             try
             {
-                var element = _wait.Until(ExpectedConditions.ElementToBeClickable(locator));
+                var element = this.wait.Until(ExpectedConditions.ElementToBeClickable(locator));
                 element.Click();
             }
             catch (Exception ex)
@@ -47,7 +51,7 @@ namespace NETAutomationFramework.Core
         {
             try
             {
-                var element = _wait.Until(ExpectedConditions.ElementToBeClickable(locator));
+                var element = this.wait.Until(ExpectedConditions.ElementToBeClickable(locator));
                 element.Clear();
                 element.SendKeys(text);
             }
@@ -61,7 +65,7 @@ namespace NETAutomationFramework.Core
         {
             try
             {
-                var element = _wait.Until(ExpectedConditions.ElementIsVisible(locator));
+                var element = this.wait.Until(ExpectedConditions.ElementIsVisible(locator));
                 return element.Text;
             }
             catch (Exception ex)
@@ -74,7 +78,7 @@ namespace NETAutomationFramework.Core
         {
             try
             {
-                return _wait.Until(ExpectedConditions.ElementIsVisible(locator)).Displayed;
+                return this.wait.Until(ExpectedConditions.ElementIsVisible(locator)).Displayed;
             }
             catch
             {
@@ -86,7 +90,7 @@ namespace NETAutomationFramework.Core
         {
             try
             {
-                _wait.Until(ExpectedConditions.ElementIsVisible(locator));
+                this.wait.Until(ExpectedConditions.ElementIsVisible(locator));
             }
             catch (Exception ex)
             {
@@ -98,7 +102,7 @@ namespace NETAutomationFramework.Core
         {
             try
             {
-                var element = _wait.Until(ExpectedConditions.ElementIsVisible(locator));
+                var element = this.wait.Until(ExpectedConditions.ElementIsVisible(locator));
                 var select = new SelectElement(element);
                 select.SelectByText(text);
             }
@@ -112,7 +116,7 @@ namespace NETAutomationFramework.Core
         {
             try
             {
-                var element = _wait.Until(ExpectedConditions.ElementIsVisible(locator));
+                var element = this.wait.Until(ExpectedConditions.ElementIsVisible(locator));
                 var select = new SelectElement(element);
                 select.SelectByValue(value);
             }
@@ -126,8 +130,8 @@ namespace NETAutomationFramework.Core
         {
             try
             {
-                var element = _wait.Until(ExpectedConditions.ElementExists(locator));
-                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView(true);", element);
+                var element = this.wait.Until(ExpectedConditions.ElementExists(locator));
+                ((IJavaScriptExecutor)this.driver).ExecuteScript("arguments[0].scrollIntoView(true);", element);
                 Thread.Sleep(500); // Small pause to allow scroll to complete
             }
             catch (Exception ex)
@@ -140,8 +144,8 @@ namespace NETAutomationFramework.Core
         {
             try
             {
-                var element = _wait.Until(ExpectedConditions.ElementExists(locator));
-                var actions = new OpenQA.Selenium.Interactions.Actions(_driver);
+                var element = this.wait.Until(ExpectedConditions.ElementExists(locator));
+                var actions = new OpenQA.Selenium.Interactions.Actions(this.driver);
                 actions.MoveToElement(element).Perform();
             }
             catch (Exception ex)
@@ -154,7 +158,7 @@ namespace NETAutomationFramework.Core
         {
             try
             {
-                var element = _wait.Until(ExpectedConditions.ElementExists(locator));
+                var element = this.wait.Until(ExpectedConditions.ElementExists(locator));
                 return element.GetAttribute(attributeName) ?? string.Empty;
             }
             catch (Exception ex)
@@ -167,7 +171,7 @@ namespace NETAutomationFramework.Core
         {
             try
             {
-                _wait.Until(ExpectedConditions.TextToBePresentInElementLocated(locator, text));
+                this.wait.Until(ExpectedConditions.TextToBePresentInElementLocated(locator, text));
             }
             catch (Exception ex)
             {
@@ -179,7 +183,7 @@ namespace NETAutomationFramework.Core
         {
             try
             {
-                return _wait.Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(locator));
+                return this.wait.Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(locator));
             }
             catch (Exception ex)
             {
@@ -191,18 +195,19 @@ namespace NETAutomationFramework.Core
         {
             try
             {
-                _wait.Until(ExpectedConditions.FrameToBeAvailableAndSwitchToIt(frameLocator));
+                this.wait.Until(ExpectedConditions.FrameToBeAvailableAndSwitchToIt(frameLocator));
             }
             catch (Exception ex)
             {
                 throw new Exception($"Failed to switch to frame with locator: {frameLocator}", ex);
             }
         }
+
         public void SwitchToDefaultContent()
         {
             try
             {
-                _driver.SwitchTo().DefaultContent();
+                this.driver.SwitchTo().DefaultContent();
             }
             catch (Exception ex)
             {
@@ -214,7 +219,7 @@ namespace NETAutomationFramework.Core
         {
             try
             {
-                return _wait.Until(ExpectedConditions.ElementExists(locator));
+                return this.wait.Until(ExpectedConditions.ElementExists(locator));
             }
             catch (Exception ex)
             {
@@ -226,8 +231,8 @@ namespace NETAutomationFramework.Core
         {
             try
             {
-                _wait.Until(ExpectedConditions.AlertIsPresent());
-                _driver.SwitchTo().Alert().Accept();
+                this.wait.Until(ExpectedConditions.AlertIsPresent());
+                this.driver.SwitchTo().Alert().Accept();
             }
             catch (Exception ex)
             {
@@ -239,8 +244,8 @@ namespace NETAutomationFramework.Core
         {
             try
             {
-                _wait.Until(ExpectedConditions.AlertIsPresent());
-                _driver.SwitchTo().Alert().Dismiss();
+                this.wait.Until(ExpectedConditions.AlertIsPresent());
+                this.driver.SwitchTo().Alert().Dismiss();
             }
             catch (Exception ex)
             {

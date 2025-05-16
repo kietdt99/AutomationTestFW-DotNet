@@ -1,18 +1,33 @@
-# .NET Automation Framework
+# .NET Test Automation Framework
 
-A modern and robust test automation framework built with C#, .NET 9, and XUnit, implementing the Page Object Model (POM) pattern. This framework provides a scalable and maintainable solution for web application testing.
+A modern, robust test automation framework built with C#, .NET 9, and XUnit, implementing the Page Object Model (POM) pattern. The framework includes integrated code quality checks, test reporting, and CI/CD pipeline configuration.
 
 ## 🌟 Features
 
-- **Modern Stack**: Built on .NET 9 and XUnit for reliable test execution
-- **Page Object Model**: Clean separation of test logic and page interactions
-- **Enhanced Selenium Wrapper**: Custom `SeleniumExecutor` class for robust element interactions
-- **Smart Waits**: Intelligent wait strategies using SeleniumExtras.WaitHelpers
-- **Organized Structure**: Clear project organization with regions and proper separation of concerns
-- **Configuration Management**: Flexible configuration system for different environments
-- **WebDriver Factory**: Dynamic browser management with factory pattern
-- **Maintainable Tests**: Easy-to-read and maintain test cases
-- **Cross-browser Support**: Ready for multiple browser testing
+- **Modern Tech Stack**: 
+  - .NET 9 and XUnit for reliable test execution
+  - Selenium WebDriver with enhanced wrapper
+  - FluentAssertions for readable assertions
+  - StyleCop for code quality enforcement
+
+- **Architecture & Design**:
+  - Page Object Model (POM) pattern
+  - Smart wait strategies using SeleniumExtras.WaitHelpers
+  - WebDriver Factory for dynamic browser management
+  - Organized structure with clear separation of concerns
+
+- **Quality Assurance**:
+  - StyleCop code analysis integration
+  - Code formatting verification
+  - Consistent coding standards
+
+- **CI/CD & Reporting**:
+  - Automated GitHub Actions pipeline
+  - Test execution with detailed logging
+  - Code coverage reporting
+  - Test results in TRX format
+  - Failure screenshots capture
+  - Artifact collection
 
 ## 🏗️ Architecture
 
@@ -88,11 +103,51 @@ dotnet test --filter "FullyQualifiedName~NETAutomationFramework.Tests.LoginTests
 
 ## 🔧 Configuration
 
-The framework supports configuration through the `Config.cs` class:
-- Base URL configuration
-- Browser settings
-- Default credentials
-- Timeouts and waits
+### Environment Variables
+```bash
+TEST_BASE_URL=https://www.saucedemo.com
+TEST_BROWSER=chrome
+TEST_HEADLESS=true
+```
+
+### StyleCop Configuration
+The project includes StyleCop.Analyzers for enforcing coding standards:
+- File header requirements
+- Code formatting rules
+- Naming conventions
+- Documentation rules
+- Code organization
+
+### test.runsettings
+Test execution configuration including:
+- Test parallelization
+- Code coverage settings
+- Test environment parameters
+
+## 🔄 CI/CD Pipeline
+
+The framework includes a GitHub Actions workflow that:
+
+1. **Build & Analysis**
+   - Restores dependencies
+   - Verifies code formatting
+   - Runs StyleCop analysis
+   - Builds the solution
+
+2. **Testing**
+   - Executes all tests
+   - Collects code coverage
+   - Captures screenshots on failures
+
+3. **Reporting**
+   - Generates test reports
+   - Creates coverage report
+   - Collects test artifacts
+
+4. **Artifacts**
+   - Test results (TRX format)
+   - Code coverage reports
+   - Failure screenshots
 
 ## 📝 Writing Tests
 

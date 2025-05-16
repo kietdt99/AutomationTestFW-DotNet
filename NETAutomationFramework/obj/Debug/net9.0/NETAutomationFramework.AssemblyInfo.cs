@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NETAutomationFramework")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+31530c81de82a16e6e3ed792637b80b9b5002576")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9dc5be7c01ac2f82d42de7ffb821838cd4d965ac")]
 [assembly: System.Reflection.AssemblyProductAttribute("NETAutomationFramework")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NETAutomationFramework")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

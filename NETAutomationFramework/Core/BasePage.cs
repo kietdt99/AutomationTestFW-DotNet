@@ -1,8 +1,13 @@
-using OpenQA.Selenium;
-using NETAutomationFramework.Utils;
+// <copyright file="BasePage.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace NETAutomationFramework.Core
-{    public abstract class BasePage
+{
+    using NETAutomationFramework.Utils;
+    using OpenQA.Selenium;
+
+    public abstract class BasePage
     {
         protected readonly IWebDriver Driver;
         protected readonly SeleniumExecutor SeleniumExecutor;
@@ -10,14 +15,14 @@ namespace NETAutomationFramework.Core
         protected BasePage(IWebDriver driver)
         {
             // Initialize the WebDriver and SeleniumExecutor
-            Driver = driver;
-            SeleniumExecutor = new SeleniumExecutor(driver);
-            
+            this.Driver = driver;
+            this.SeleniumExecutor = new SeleniumExecutor(driver);
+
             // Navigate to page URL on initialization
-            SeleniumExecutor.OpenPage($"{Config.BaseUrl}{PageUrl}");
+            this.SeleniumExecutor.OpenPage($"{Config.BaseUrl}{this.PageUrl}");
 
             // Check if the page is displayed
-            WaitForPageToLoad();
+            this.WaitForPageToLoad();
         }
 
         protected abstract string PageUrl { get; }
@@ -27,7 +32,7 @@ namespace NETAutomationFramework.Core
         protected virtual void WaitForPageToLoad()
         {
             // Default implementation. Override in specific pages if needed
-            SeleniumExecutor.WaitForElementToBeVisible(GetPageIdentifier());
+            this.SeleniumExecutor.WaitForElementToBeVisible(this.GetPageIdentifier());
         }
 
         protected abstract By GetPageIdentifier();

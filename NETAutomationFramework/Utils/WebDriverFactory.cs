@@ -1,9 +1,13 @@
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using System;
+// <copyright file="WebDriverFactory.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace NETAutomationFramework.Utils
 {
+    using System;
+    using OpenQA.Selenium;
+    using OpenQA.Selenium.Chrome;
+
     public static class WebDriverFactory
     {
         public static IWebDriver CreateDriver()
@@ -18,7 +22,7 @@ namespace NETAutomationFramework.Utils
         private static IWebDriver CreateChromeDriver()
         {
             var options = new ChromeOptions();
-            
+
             if (Config.Headless)
             {
                 options.AddArgument("--headless");
@@ -28,7 +32,7 @@ namespace NETAutomationFramework.Utils
             options.AddArgument("--start-maximized");
             options.AddArgument("--disable-notifications");
             options.AddArgument("--disable-popup-blocking");
-            
+
             return new ChromeDriver(options);
         }
     }

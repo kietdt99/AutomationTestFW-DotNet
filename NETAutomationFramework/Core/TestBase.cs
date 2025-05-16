@@ -1,31 +1,36 @@
-using Xunit;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.Extensions;
-using NETAutomationFramework.Utils;
-using System;
-using System.IO;
-using System.Runtime.CompilerServices;
+// <copyright file="TestBase.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace NETAutomationFramework.Core
 {
+    using System;
+    using System.IO;
+    using System.Runtime.CompilerServices;
+    using NETAutomationFramework.Utils;
+    using OpenQA.Selenium;
+    using OpenQA.Selenium.Support.Extensions;
+    using Xunit;
+
     public class TestBase : IDisposable
     {
         protected IWebDriver Driver { get; private set; }
+
         protected SeleniumExecutor SeleniumExecutor { get; private set; }
 
         public TestBase()
         {
-            Driver = WebDriverFactory.CreateDriver();
-            SeleniumExecutor = new SeleniumExecutor(Driver);
+            this.Driver = WebDriverFactory.CreateDriver();
+            this.SeleniumExecutor = new SeleniumExecutor(this.Driver);
         }
 
         public virtual void Dispose()
         {
-            if (Driver != null)
+            if (this.Driver != null)
             {
                 try
                 {
-                    TakeScreenshot();
+                    this.TakeScreenshot();
                 }
                 catch (Exception)
                 {
@@ -33,8 +38,8 @@ namespace NETAutomationFramework.Core
                 }
                 finally
                 {
-                    Driver.Quit();
-                    Driver.Dispose();
+                    this.Driver.Quit();
+                    this.Driver.Dispose();
                 }
             }
         }
@@ -43,13 +48,13 @@ namespace NETAutomationFramework.Core
         {
             try
             {
-                var screenshot = ((ITakesScreenshot)Driver).GetScreenshot();
+                var screenshot = ((ITakesScreenshot)this.Driver).GetScreenshot();
                 var artifactDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestResults", "Screenshots");
                 Directory.CreateDirectory(artifactDirectory);
-                
+
                 var timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
                 var fileName = Path.Combine(artifactDirectory, $"{testName}_{timestamp}.png");
-                
+
                 File.WriteAllBytes(fileName, screenshot.AsByteArray);
             }
             catch (Exception ex)
